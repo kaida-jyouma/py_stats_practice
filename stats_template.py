@@ -71,7 +71,9 @@ chi2, p, dof, expected = chi2_contingency(data, correction=False)
 
 
 # 正規分布: データの分布として最も典型的なもの。norm。
+
 # 以下において、平均=ave、標準偏差=sigmaとして扱う。
+# これ以降、平均=ave, 標準偏差=sigmaの正規分布をN(ave, sigma)で表す。
 
 # 正規分布を扱う際、normを導入しておくこと。
 from scipy.stats import norm
@@ -88,7 +90,31 @@ ans = N.cdf(150)
 N = norm(27009, 4530)
 ans = N.interval(0.95)
 
-# 例4: ave=1.8, sigma=2.0で......
+# 例4: ave=1.8, sigma=2.0で5.3以上である割合
+N = norm(1.8, 2.0)
+ans = N.sf(5.3)
+
+
+
+
+
+# 平均値検定: N(ave, sigma)に従う大きさnの標本の平均値は、N(ave, sigma/(n**(1/2)))に従う。
+
+# 例: 大きさnの標本がN(ave, sigma)に従うとき、どれほどの確率で「取りうる標本の平均値」が「とある平均A」を上回るか。
+ave = 1.8
+sigma = 2.0
+n = 31
+A = 2.7
+N = norm(loc=ave, scale=sigma/(n**(1/2)))
+p = N.sf(A)
+
+
+
+
+
+# t分布/t検定
+
+# 例:
 
 
 
