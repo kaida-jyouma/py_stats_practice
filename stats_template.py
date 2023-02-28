@@ -101,21 +101,30 @@ ans = N.sf(5.3)
 # 平均値検定: N(ave, sigma)に従う大きさnの標本の平均値は、N(ave, sigma/(n**(1/2)))に従う。
 
 # 例: 大きさnの標本がN(ave, sigma)に従うとき、どれほどの確率で「取りうる標本の平均値」が「とある平均A」を上回るか。
+from scipy.stats import norm
 ave = 1.8
 sigma = 2.0
-n = 31
+size = 31
 A = 2.7
-N = norm(loc=ave, scale=sigma/(n**(1/2)))
+N = norm(loc=ave, scale=sigma/(size**(1/2)))
 p = N.sf(A)
 
 
 
 
 
-# t分布/t検定
+# t分布/t検定: 母集団の標準偏差(=母標準偏差)が不明なときに用いる分布。標本の大きさが30以下の際に用いる。基本的に普遍標準偏差を用いる。
 
-# 例:
+# t分布を考えるとき、自由度は (標本サイズ - 1) の値となる。
 
+# 例: ave=125で正規分布に従う標本から10サンプルを抽出たところ、抽出したサンプルは平均121.8, 普遍標準偏差=4.2であったとき、サンプルの平均値が125以上である確率
+from scipy.stats import t
+ave_sample = 121.8
+sigma_sample = 4.2
+ave = 125
+size = 10
+T = t(loc=ave_sample, scale=sigma_sample/(size ** (1/2)), df=(size - 1)) # dfは自由度の設定
+p = T.sf(ave)
 
 
 
