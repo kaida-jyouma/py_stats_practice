@@ -14,5 +14,5 @@ thres = 14 # 閾値
 # 14~20の場合
 p = sum([comb(all_n, c) * (pct ** c) * ((1 - pct) ** (all_n - c)) for c in range(thres, all_n + 1)])
 # 0~6の場合
-p = sum([comb(all_n, c) * (pct ** c) * ((1 - pct) ** (all_n - c)) for c in range(0, 6)])
+p = sum([comb(all_n, c) * (pct ** c) * ((1 - pct) ** (all_n - c)) for c in range(0, all_n - thres + 1)])
 
