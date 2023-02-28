@@ -117,14 +117,36 @@ p = N.sf(A)
 
 # t分布を考えるとき、自由度は (標本サイズ - 1) の値となる。
 
-# 例: ave=125で正規分布に従う標本から10サンプルを抽出たところ、抽出したサンプルは平均121.8, 普遍標準偏差=4.2であったとき、サンプルの平均値が125以上である確率
+# 例1: ave=125で正規分布に従う標本から10サンプルを抽出たところ、抽出したサンプルは平均121.8, 普遍標準偏差=4.2であったとき、サンプルの平均値が125以上である確率
 from scipy.stats import t
 ave_sample = 121.8
 sigma_sample = 4.2
 ave = 125
 size = 10
 T = t(loc=ave_sample, scale=sigma_sample/(size ** (1/2)), df=(size - 1)) # dfは自由度の設定
-p = T.sf(ave)
+p = T.sf(ave) # ave > ave_sampleよりsfを利用
+
+
+# 例2: ave=60で正規分布に従う標本から10サンプル抽出したデータで、サンプルの平均値が60以下である確率
+from scipy.stats import t
+import numpy as np
+
+# 母平均
+ave = 60
+
+# データ
+data = [62.2, 60.8, 62.9, 59.2, 58.8, 59.1, 63.5, 61.6, 62.1, 59.8]
+
+# 標本平均を導出
+ave_sample = sum(data)/len(data)
+
+# 普遍標準偏差を導出
+sd = np.std(data, ddof = 1)
+
+# 確率導出
+T = t(loc=ave_sample, scale=sd/np.sqrt(len(data)), df=(len(data)-1))
+p = T.cdf(ave) # ave < ave_sampleよりcdfを利用
+
 
 
 
