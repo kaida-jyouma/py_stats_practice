@@ -70,6 +70,28 @@ chi2, p, dof, expected = chi2_contingency(data, correction=False)
 
 
 
+# 正規分布: データの分布として最も典型的なもの。norm。
+# 以下において、平均=ave、標準偏差=sigmaとして扱う。
+
+# 正規分布を扱う際、normを導入しておくこと。
+from scipy.stats import norm
+
+# 例1: ave=5.7, sigma=0.5での上位1%地点
+N = norm(5.7, 0.5)
+ans = N.isf(0.01)
+
+# 例2: ave=127, sigma=22での150以下である割合
+N = norm(127, 22)
+ans = N.cdf(150)
+
+# 例3: ave=27009, sigma=4530での信頼区間95%となる2値
+N = norm(27009, 4530)
+ans = N.interval(0.95)
+
+# 例4: ave=1.8, sigma=2.0で......
+
+
+
 
 
 # おまけ: 整数位での四捨五入関数
@@ -81,3 +103,5 @@ def super_round(x):
         return int(math.modf(x)[1])
     else:
         return int(math.modf(x)[1]) + 1
+
+
